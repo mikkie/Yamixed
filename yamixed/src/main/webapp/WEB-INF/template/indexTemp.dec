@@ -1,0 +1,243 @@
+<#import "/static/include/spring.ftl" as spring/>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="Yamixed,信息分享,信息混搭,信息混聚,信息聚合,链接" />
+  <meta name="description" content="Yamixed-一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。">
+  <meta name="baidu-site-verification" content="ewHv86DJZ4" />
+  <meta name="google-site-verification" content="W1FUIaSZBZqI5k4yCwXF5htqEv4xW8vA3eHk2usV6V0" />
+  <meta property="qc:admins" content="0061777407611510546375" />
+  <title>${title} - Yamixed</title>
+  <link rel="shortcut icon" href="${rc.getContextPath()}/static/images/favicon.ico" type="image/x-icon">
+  <!-- Bootstrap -->
+  <link href="${rc.getContextPath()}/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${rc.getContextPath()}/static/template/css/indexDec.css" rel="stylesheet">
+  <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101202925" data-redirecturi="http://www.yamixed.com${rc.getContextPath()}" data-callback="true" charset="utf-8"></script>
+  <script type="text/javascript">
+  ctx = '${rc.getContextPath()}';
+  window.com = window.com || {};
+  window.com.yamixed = window.com.yamixed || {};
+  </script>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      ${head}
+    </head>
+    <body>
+     <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">Yamixed</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="${rc.getContextPath()}/mix/top">热门</a>
+            </li>
+            <li>
+              <a href="${rc.getContextPath()}/mix/history/1">历史</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#cateDialog">版块</a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">书签 <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <#if allChannels??>
+                <#list allChannels as channel>
+                <li><a href="${rc.getContextPath()}/fav/${channel.id}">${channel.name}</a></li>
+                </#list>
+                </#if>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <#if Session.user??>
+            <li><img onclick="javascript:window,location.href='${rc.getContextPath()}/fav/myfav/1;'" id="userAvatar" src="${Session.user.avatar}" class="img-circle"/></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${Session.user.name}<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a id="logout" href="javascript:QC.Login.signOut();window.location.href='${rc.getContextPath()}/logout'">退出</a></li>
+              </ul>
+            </li>
+            <#else>
+            <li style="margin-top:13px;"><span id="qqLoginBtn"></span></li>
+            <form id="qqLoginForm" class="form-horizontal" role="form" method="post" action="${rc.getContextPath()}/fav/login/1" style="display:none;">
+              <input type="hidden" name="openId" id="openId"/>
+              <input type="hidden" name="accessToken" id="accessToken"/>
+              <input type="hidden" name="avatar" id="avatar"/>
+              <input type="hidden" name="nickname" id="nickname"/>
+            </form>
+            <script type="text/javascript">
+            (function qqLogin(){
+               var a = QC.Login({
+                 btnId:"qqLoginBtn",
+                 size: "A_M" 
+               },function(reqData, opts){
+                  var figureurl = reqData.figureurl;
+                  var nickname = reqData.nickname;
+                  if(QC.Login.check()){
+                     QC.Login.getMe(function(openId, accessToken){
+                       $('#openId').val(openId);
+                       $('#accessToken').val(accessToken); 
+                       $('#nickname').val(nickname);
+                       QC.api("get_user_info", {}).success(function(s){
+                         $('#avatar').val(s.data.figureurl_2);
+                         $('#qqLoginForm').submit();  
+                       });
+                     }); 
+                   }
+                }); 
+            })();
+            </script>
+            </#if>
+      <li><a href="javascript:void(0);" data-toggle="modal" data-target="#newMixDialog">发布链接</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="modal fade" id="cateDialog" tabindex="-1" role="dialog" aria-labelledby="cateLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="cateLabel">版块</h4>
+      </div>
+      <div class="modal-body" style="height:110px;">
+        <div class="form-group">
+         <ul>
+          <#if allCates??>
+          <#list allCates as cate>
+          <li class="catdetail">
+            <div class="media">
+              <a class="pull-left" href="${rc.getContextPath()}/mix/cateMix/${cate.id}/0">
+                <div class="media-body">
+                  <div class="media">
+                    ${cate.name}
+                  </div>
+                </div>
+              </a>
+            </div>
+          </li>  
+          </#list>
+          </#if>
+        </ul> 
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    </div>
+  </div>
+</div>
+</div>
+</header>  
+<div id="main" class="container">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="${rc.getContextPath()}/static/jquery/jquery-1.11.1.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="${rc.getContextPath()}/static/bootstrap/js/bootstrap.min.js"></script>
+  <!-- Modal -->
+  <div class="modal fade" id="newMixDialog" tabindex="-1" role="dialog" aria-labelledby="newMixLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="newMixLabel">发布链接</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" id="newMixForm" role="form" action="${rc.getContextPath()}/mix/new" method="post">
+            <div class="form-group">
+              <label for="url" class="col-sm-offset-1 col-sm-2 control-label">链接地址</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="url" name="mixUrl" placeholder="链接地址">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" id="submitMix">发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  ${body}
+</div> 
+<footer>
+  <div class="container">
+   <div id="foot_menu">
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于 Yamixed</a>
+  </div> 
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com" data-summary="Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。" data-title="Yamixed" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+    <a class="jiathis_button_qzone"></a>
+    <a class="jiathis_button_tsina"></a>
+    <a class="jiathis_button_tqq"></a>
+    <a class="jiathis_button_weixin"></a>
+    <a class="jiathis_button_renren"></a>
+    <a class="jiathis_button_xiaoyou"></a>
+  </div>
+  <script type="text/javascript" >
+  var jiathis_config={
+    url:"http://www.yamixed.com",
+    summary:"Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的URL。",
+    title:"Yamixed",
+    pic:"http://www.yamixed.com/static/images/favicon.ico",
+    shortUrl:true,
+    hideMore:true
+  }
+  </script>
+  <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+  <!-- JiaThis Button END -->
+  <div style="clear:both;"><p>Copyright © 2015 Yamixed</p></div>
+</div> 
+</footer>  
+<!--about my site-->
+<div class="modal fade" id="aboutSite" tabindex="-1" role="dialog" aria-labelledby="yamixedLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="yamixedLabel">Yamixed</h4>
+      </div>
+      <div class="modal-body">
+        <div class="logo">
+         <img src="${rc.getContextPath()}/static/images/favicon.ico"/>
+       </div> 
+       <div class="siteInfo">
+         <span><h4>Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。</h4><h6>联系我:true2green@qq.com</h6></span>
+       </div>  
+       <div class="clear"></div>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+ $('#submitMix').click(function(){
+  var $urlInput = $('#url');
+  if($urlInput.val()){
+   $('#newMixForm').submit();
+ }
+ else{
+   $urlInput.focus();
+ }
+}); 
+ $('.mixLink').click(function(){
+  var mixId = $(this).attr('mixId');
+  if(mixId){
+   $.get(ctx + '/mix/hitMix',{mixId : mixId});   
+ } 
+});
+});  
+</script>
+</body>
+</html>

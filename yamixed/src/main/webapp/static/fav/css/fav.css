@@ -1,0 +1,74 @@
+#profile img{
+   width: 100px;
+   height: 100px;
+}
+
+.clear{
+  margin-top: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+#tagUl li{
+  margin: 3px;
+}
+
+#tagUl li a:hover{
+  background-color: 
+}
+
+#articleDiv,#tagDiv{
+  margin-top: 20px;
+}
+
+.articleowner img{
+  width: 60px;
+  height: 60px;
+}
+
+.media-left-div{
+	height:100px;
+}
+.media-left-div img{
+	width:100px;
+	max-height:100px;
+}
+
+.media-heading span.title{
+   font-weight: bold;
+}
+
+.media-heading span.info{
+	font-size: 15px;
+    color: grey;
+}
+
+.media-body{
+   width:100%;	
+}
+
+.media-body-left{
+   float:left;
+   width:90%; 
+}
+
+.media-body-right{
+   float:right;
+}
+
+.mixLink{
+  color: #000000;
+  text-decoration: none;
+}
+
+.mixLink:active,.mixLink:hover{
+  color: #000000;
+  text-decoration: none;
+}
+
+#editIntroduce{
+  cursor: pointer;
+}
+
+#introduceInput{
+  width:500px;
+}

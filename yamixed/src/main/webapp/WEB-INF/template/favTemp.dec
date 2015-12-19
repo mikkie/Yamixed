@@ -1,0 +1,170 @@
+<#import "/static/include/spring.ftl" as spring/>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="Yamixed,书签,信息混搭,信息混聚,信息聚合,链接" />
+  <meta name="description" content="Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。">
+  <meta name="baidu-site-verification" content="ewHv86DJZ4" />
+  <meta name="google-site-verification" content="W1FUIaSZBZqI5k4yCwXF5htqEv4xW8vA3eHk2usV6V0" />
+  <meta property="qc:admins" content="0061777407611510546375" />
+  <title>${title} - Yamixed书签</title>
+  <link rel="shortcut icon" href="${rc.getContextPath()}/static/images/favicon.ico" type="image/x-icon">
+  <!-- Bootstrap -->
+  <link href="${rc.getContextPath()}/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${rc.getContextPath()}/static/template/css/favDec.css" rel="stylesheet">
+  <script type="text/javascript">
+  ctx = '${rc.getContextPath()}';
+  window.com = window.com || {};
+  window.com.yamixed = window.com.yamixed || {};
+  </script>
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      ${head}
+    </head>
+    <body>
+     <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">Yamixed</a>
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="${rc.getContextPath()}/fav/${channel.id}">${channel.name}</a>
+            </li>
+            <li>
+              <a href="${rc.getContextPath()}/fav/myfav/${channel.id}">我的书签</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <#if Session.user??>
+            <li><img onclick="javascript:window,location.href='${rc.getContextPath()}/fav/myfav/${channel.id};'" id="userAvatar" src="${Session.user.avatar}" class="img-circle"/></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${Session.user.name}<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a id="logout" href="javascript:void(0);">退出</a></li>
+              </ul>
+            </li>
+            </#if>
+            <li><a href="${rc.getContextPath()}/fav/newarticle/${channel.id}">发布书签</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>  
+  <div id="main" class="container">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="${rc.getContextPath()}/static/jquery/jquery-1.11.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="${rc.getContextPath()}/static/bootstrap/js/bootstrap.min.js"></script>
+    ${body}
+  </div> 
+  <footer>
+    <div class="container">
+     <div id="foot_menu">
+      <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于 Yamixed书签</a>
+    </div> 
+    <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com/fav/1/1/0" data-summary="Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。" data-title="Yamixed书签" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+      <a class="jiathis_button_qzone"></a>
+      <a class="jiathis_button_tsina"></a>
+      <a class="jiathis_button_tqq"></a>
+      <a class="jiathis_button_weixin"></a>
+      <a class="jiathis_button_renren"></a>
+      <a class="jiathis_button_xiaoyou"></a>
+    </div>
+    <script type="text/javascript" >
+    var jiathis_config={
+      url:"http://www.yamixed.com/fav/1/1/0",
+      summary:"Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。",
+      title:"Yamixed书签",
+      pic:"http://www.yamixed.com/static/images/favicon.ico",
+      shortUrl:true,
+      hideMore:true
+    }
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+    <div style="clear:both;"><p>Copyright © 2015 Yamixed</p></div>
+  </div> 
+</footer>  
+<!--about my site-->
+<div class="modal fade" id="aboutSite" tabindex="-1" role="dialog" aria-labelledby="yamixedLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="yamixedLabel">Yamixed书签</h4>
+      </div>
+      <div class="modal-body">
+        <div class="logo">
+         <img src="${rc.getContextPath()}/static/images/favicon.ico"/>
+       </div> 
+       <div class="siteInfo">
+         <span><h4>Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。</h4><h6>联系我:true2green@qq.com</h6></span>
+       </div>  
+       <div class="clear"></div>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    </div>
+  </div>
+</div>
+</div>
+<script type="text/javascript">
+window.com.yamixed.util = (function(){
+  var TEMP = {
+     LOADING : '<div id="loadingDiv" style="width:100%;text-align:center;position:relative;z-index:100;"><img src="${rc.getContextPath()}/static/images/loading.gif"/></div>'
+  };
+
+  var loading = function(id){
+     var $div = $('#' + id);
+     var height = $div.height();
+     var $loading = $(TEMP.LOADING);
+     $loading.css('top',height/2 + 'px');
+     $div.prepend($loading);
+  };
+
+
+  var loaded = function(){
+    $('#loadingDiv').remove();
+  };
+
+  return {
+    loading : loading,
+    loaded : loaded
+  }
+})();
+
+
+
+$(document).ready(function(){
+ $('#submitMix').click(function(){
+  var $urlInput = $('#url');
+  if($urlInput.val()){
+   $('#newMixForm').submit();
+ }
+ else{
+   $urlInput.focus();
+ }
+}); 
+ $('.mixLink').click(function(){
+  var mixId = $(this).attr('mixId');
+  if(mixId){
+   $.get(ctx + '/mix/hitMix',{mixId : mixId});   
+ } 
+});
+$('#logout').click(function(){
+   window.location.href='${rc.getContextPath()}/fav/logout/${channel.id}';
+});
+});  
+</script>
+</body>
+</html>

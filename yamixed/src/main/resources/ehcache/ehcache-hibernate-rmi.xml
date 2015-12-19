@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false">
+
+	<cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic,multicastGroupAddress=230.0.0.1,multicastGroupPort=4446" />
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory" />
+
+	<diskStore path="java.io.tmpdir/hibernate/business" />
+
+	<!-- DefaultCache setting. -->
+	<defaultCache eternal="false" timeToIdleSeconds="300"
+		timeToLiveSeconds="600" overflowToDisk="true" />
+
+	<!-- Special objects setting.
+	<cache name="com.hymake.home.entity.account.User" eternal="true"
+		overflowToDisk="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.hymake.home.entity.account.User.roles"
+		eternal="true" overflowToDisk="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.hymake.home.entity.account.Role" eternal="true"
+		overflowToDisk="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache>
+	<cache name="com.hymake.home.entity.account.Role.permissions"
+		eternal="true" overflowToDisk="true">
+		<cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicatePuts=false,replicateUpdatesViaCopy=false" />
+	</cache> -->
+</ehcache>
