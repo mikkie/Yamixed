@@ -27,6 +27,12 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.apache.log4j.Logger;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
@@ -38,6 +44,7 @@ import org.htmlparser.tags.TitleTag;
 import org.htmlparser.util.NodeList;
 import org.htmlparser.util.ParserException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -46,6 +53,7 @@ import com.yamixed.base.service.impl.CrudServiceImpl;
 import com.yamixed.base.util.URLUtil;
 import com.yamixed.fav.dao.ILinkDao;
 import com.yamixed.fav.entity.Link;
+import com.yamixed.fav.entity.User;
 import com.yamixed.mix.service.ILinkService;
 
 /**
@@ -226,6 +234,42 @@ public class LinkServiceImpl extends CrudServiceImpl<Link, ILinkDao> implements
 		} else {
 			link.setDown(link.getDown() + 1);
 		}
+	}
+
+	
+	/**
+	 * 链接查询:查询属于channelid的关键字为key的所有公开的或者用户登录后私有的链接
+	 */
+	@Override
+	public List<Link> findLinks(final Long channelid,final String key,final User user) {
+		return dao.findAll(new Specification<Link>() {
+			
+			@Override
+			public Predicate toPredicate(Root<Link> root, CriteriaQuery<?> query,
+					CriteriaBuilder cb) {
+				List<Predicate> predicates = new ArrayList<Predicate>();
+				Path<Long> articleIdPath = root.get("article").get("tag").get("channel").get("id");
+				//频道
+				predicates.add(cb.equal(articleIdPath, channelid));
+				Path<String> titlePath = root.get("title");
+				Path<String> descPath = root.get("description");
+				//关键字
+				predicates.add(cb.or(cb.like(titlePath, "%" + key + "%"),cb.like(descPath, "%" + key + "%")));
+				Path<Boolean> privatedPath = root.get("privated");
+				//未登录使用公开
+				if(user == null){
+					predicates.add(cb.equal(privatedPath, false));
+				}
+				//登录的公开及个人私有的标签
+				else{
+					Path<Long> userIdPath = root.get("article").get("user").get("id");
+					Predicate pre2 = cb.and(cb.equal(privatedPath, true),cb.equal(userIdPath, user.getId()));
+					predicates.add(cb.or(cb.equal(privatedPath, false),pre2));
+				}
+				query.where(predicates.toArray(new Predicate[predicates.size()]));
+				return null;
+			}
+		}); 
 	}
 
 }

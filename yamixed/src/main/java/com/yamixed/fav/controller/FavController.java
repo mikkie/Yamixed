@@ -493,5 +493,26 @@ public class FavController {
 		redirectAttributes.addAttribute("cb", "cb");
 		return "forward:/fav/" + channelId + "/" + tagId + "/0";
 	}
+	
+	
+	
+	/**
+	 * 查询
+	 * @param key
+	 * @return
+	 */
+	@RequestMapping(value="/search",method=RequestMethod.POST)
+	public String search(@RequestParam("channelid")Long channelid,@RequestParam("key")String key,HttpServletRequest request,Model model){
+		if(StringUtils.isEmpty(key)){
+			return "redirect:/fav/" + channelid;
+		}
+		Object o = request.getSession().getAttribute(Constants.Session.USER);
+		List<Link> links = linkService.findLinks(channelid,key,(User)o);
+		Channel channel = channelService.findOne(channelid);
+		model.addAttribute("channel", channel);
+		model.addAttribute("key", key);
+		model.addAttribute("links", links);
+		return "fav/searchLink";
+	}
 
 }

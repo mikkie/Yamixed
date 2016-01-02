@@ -35,7 +35,7 @@
           <a href="/" class="navbar-brand">Yamixed</a>
         </div>
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav navul">
             <li>
               <a href="${rc.getContextPath()}/fav/${channel.id}">${channel.name}</a>
             </li>
@@ -44,6 +44,14 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <form id="searchForm" class="navbar-form navbar-left" role="search" action="${rc.getContextPath()}/fav/search" method="post">
+                <div class="form-group">
+                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接"/>
+                  <input name="channelid" type="hidden" value="${channel.id}"/>
+                </div>
+              </form>
+            </li>  
             <#if Session.user??>
             <li><img onclick="javascript:window,location.href='${rc.getContextPath()}/fav/myfav/${channel.id};'" id="userAvatar" src="${Session.user.avatar}" class="img-circle"/></li>
             <li class="dropdown">
@@ -161,6 +169,15 @@ $(document).ready(function(){
    $.get(ctx + '/mix/hitMix',{mixId : mixId});   
  } 
 });
+ $('#searchLink').keyup(function(e){
+    if(e.keyCode == 13){
+       if(!$.trim($(this).val())){
+          return false;
+       } 
+       $('#searchForm').submit();
+    }
+    return false;
+ });
 $('#logout').click(function(){
    window.location.href='${rc.getContextPath()}/fav/logout/${channel.id}';
 });
