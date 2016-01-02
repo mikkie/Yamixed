@@ -32,9 +32,15 @@
      <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
       <div class="container">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuBar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a href="/" class="navbar-brand">Yamixed</a>
         </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <nav class="collapse navbar-collapse bs-navbar-collapse" id="menuBar" role="navigation">
           <ul class="nav navbar-nav navul">
             <li>
               <a href="${rc.getContextPath()}/fav/${channel.id}">${channel.name}</a>
@@ -47,7 +53,11 @@
             <li>
               <form id="searchForm" class="navbar-form navbar-left" role="search" action="${rc.getContextPath()}/fav/search" method="post">
                 <div class="form-group">
+                  <#if key??>
+                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="${key}"/>
+                  <#else>
                   <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接"/>
+                  </#if>
                   <input name="channelid" type="hidden" value="${channel.id}"/>
                 </div>
               </form>
