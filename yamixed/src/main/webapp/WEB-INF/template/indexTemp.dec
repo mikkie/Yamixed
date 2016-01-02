@@ -180,7 +180,7 @@
     <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于 Yamixed</a>
   </div> 
   <!-- JiaThis Button BEGIN -->
-  <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com" data-summary="Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。" data-title="Yamixed" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+  <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com" data-summary="Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。" data-title="Yamixed" data-pic="http://www.yamixed.com/static/images/logo_300x300.png">
     <a class="jiathis_button_qzone"></a>
     <a class="jiathis_button_tsina"></a>
     <a class="jiathis_button_tqq"></a>
@@ -193,7 +193,7 @@
     url:"http://www.yamixed.com",
     summary:"Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的URL。",
     title:"Yamixed",
-    pic:"http://www.yamixed.com/static/images/favicon.ico",
+    pic:"http://www.yamixed.com/static/images/logo_300x300.png",
     shortUrl:true,
     hideMore:true
   }

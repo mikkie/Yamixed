@@ -90,7 +90,7 @@
       <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于 Yamixed书签</a>
     </div> 
     <!-- JiaThis Button BEGIN -->
-    <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com/fav/1/1/0" data-summary="Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。" data-title="Yamixed书签" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+    <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com/fav/1/1/0" data-summary="Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。" data-title="Yamixed书签" data-pic="http://www.yamixed.com/static/images/logo_300x300.png">
       <a class="jiathis_button_qzone"></a>
       <a class="jiathis_button_tsina"></a>
       <a class="jiathis_button_tqq"></a>
@@ -103,7 +103,7 @@
       url:"http://www.yamixed.com/fav/1/1/0",
       summary:"Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。",
       title:"Yamixed书签",
-      pic:"http://www.yamixed.com/static/images/favicon.ico",
+      pic:"http://www.yamixed.com/static/images/logo_300x300.png",
       shortUrl:true,
       hideMore:true
     }
