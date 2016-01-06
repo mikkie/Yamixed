@@ -36,7 +36,7 @@
 		<ul id="tagUl" class="nav nav-pills" role="tablist">
 			<#if tags??>
 		    <#list tags as tag>
-			<li role="presentation" class="active"><button type="button" data="${tag.id}" class="tag btn btn-success" onclick="javascript:window.location.href='${rc.getContextPath()}/fav/userfav/${channel.id}/${loginUser.id}/${tag.id}/0';">${tag.name}<span class="badge">${tag.articleCount}</span></button></li>
+			<li role="presentation" class="active"><button type="button" data="${tag.id}" class="tag btn btn-success btn-xs" onclick="javascript:window.location.href='${rc.getContextPath()}/fav/userfav/${channel.id}/${loginUser.id}/${tag.id}/0';">${tag.name}<span class="badge">${tag.articleCount}</span></button></li>
 		    </#list>
 		    </#if>
 		</ul>	

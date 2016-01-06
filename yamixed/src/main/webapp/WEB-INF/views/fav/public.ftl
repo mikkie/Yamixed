@@ -15,7 +15,7 @@
 		<ul id="tagUl" class="nav nav-pills" role="tablist">
 			<#if tags??>
 			<#list tags as tag>
-			<li role="presentation" class="active"><button type="button" class="tag btn btn-warning" data="${tag.id}" onclick="javascript:window.location.href='${rc.getContextPath()}/fav/${channel.id}/${tag.id}/0';">${tag.name}<span class="badge">${tag.articleCount}</span></button></li>
+			<li role="presentation" class="active"><button type="button" class="tag btn btn-warning btn-xs" data="${tag.id}" onclick="javascript:window.location.href='${rc.getContextPath()}/fav/${channel.id}/${tag.id}/0';">${tag.name}<span class="badge">${tag.articleCount}</span></button></li>
 			</#list>
 			</#if>
 		</ul>	
