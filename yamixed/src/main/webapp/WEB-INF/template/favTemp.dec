@@ -32,10 +32,16 @@
      <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
       <div class="container">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuBar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a href="/" class="navbar-brand">Yamixed</a>
         </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-          <ul class="nav navbar-nav">
+        <nav class="collapse navbar-collapse bs-navbar-collapse" id="menuBar" role="navigation">
+          <ul class="nav navbar-nav navul">
             <li>
               <a href="${rc.getContextPath()}/fav/${channel.id}">${channel.name}</a>
             </li>
@@ -44,6 +50,18 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <form id="searchForm" class="navbar-form navbar-left" role="search" action="${rc.getContextPath()}/fav/search" method="post">
+                <div class="form-group">
+                  <#if key??>
+                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="${key}"/>
+                  <#else>
+                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接"/>
+                  </#if>
+                  <input name="channelid" type="hidden" value="${channel.id}"/>
+                </div>
+              </form>
+            </li>  
             <#if Session.user??>
             <li><img onclick="javascript:window,location.href='${rc.getContextPath()}/fav/myfav/${channel.id};'" id="userAvatar" src="${Session.user.avatar}" class="img-circle"/></li>
             <li class="dropdown">
@@ -72,7 +90,7 @@
       <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于 Yamixed书签</a>
     </div> 
     <!-- JiaThis Button BEGIN -->
-    <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com/fav/1/1/0" data-summary="Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。" data-title="Yamixed书签" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+    <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com/fav/1/1/0" data-summary="Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。" data-title="Yamixed书签" data-pic="http://www.yamixed.com/static/images/logo_300x300.png">
       <a class="jiathis_button_qzone"></a>
       <a class="jiathis_button_tsina"></a>
       <a class="jiathis_button_tqq"></a>
@@ -85,7 +103,7 @@
       url:"http://www.yamixed.com/fav/1/1/0",
       summary:"Yamixed书签是一个在线书签应用，方便用户管理、分享网址链接。",
       title:"Yamixed书签",
-      pic:"http://www.yamixed.com/static/images/favicon.ico",
+      pic:"http://www.yamixed.com/static/images/logo_300x300.png",
       shortUrl:true,
       hideMore:true
     }
@@ -161,6 +179,15 @@ $(document).ready(function(){
    $.get(ctx + '/mix/hitMix',{mixId : mixId});   
  } 
 });
+ $('#searchLink').keyup(function(e){
+    if(e.keyCode == 13){
+       if(!$.trim($(this).val())){
+          return false;
+       } 
+       $('#searchForm').submit();
+    }
+    return false;
+ });
 $('#logout').click(function(){
    window.location.href='${rc.getContextPath()}/fav/logout/${channel.id}';
 });

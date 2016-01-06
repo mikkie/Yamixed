@@ -15,8 +15,11 @@
  */
 package com.yamixed.mix.service;
 
+import java.util.List;
+
 import com.yamixed.base.service.ICrudService;
 import com.yamixed.fav.entity.Link;
+import com.yamixed.fav.entity.User;
 
 /**
  * @author Administrator
@@ -32,5 +35,7 @@ public interface ILinkService extends ICrudService<Link>{
 	public Link parseURL(String url);
 
 	public void upAndDown(boolean isUp, Long linkId);
+
+	public List<Link> findLinks(final Long channelid,final String key,final User user);
 
 }

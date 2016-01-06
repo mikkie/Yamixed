@@ -33,9 +33,15 @@
      <header class="navbar navbar-static-top navbar-inverse" id="top" role="banner">
       <div class="container">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuBar" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <a href="/" class="navbar-brand">Yamixed</a>
         </div>
-        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <nav class="collapse navbar-collapse bs-navbar-collapse" id="menuBar" role="navigation">
           <ul class="nav navbar-nav">
             <li>
               <a href="${rc.getContextPath()}/mix/top">热门</a>
@@ -174,7 +180,7 @@
     <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于 Yamixed</a>
   </div> 
   <!-- JiaThis Button BEGIN -->
-  <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com" data-summary="Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。" data-title="Yamixed" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+  <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com" data-summary="Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的链接。" data-title="Yamixed" data-pic="http://www.yamixed.com/static/images/logo_300x300.png">
     <a class="jiathis_button_qzone"></a>
     <a class="jiathis_button_tsina"></a>
     <a class="jiathis_button_tqq"></a>
@@ -187,7 +193,7 @@
     url:"http://www.yamixed.com",
     summary:"Yamixed 是一个信息聚合网站，你可以在这里分享任何你感兴趣的URL。",
     title:"Yamixed",
-    pic:"http://www.yamixed.com/static/images/favicon.ico",
+    pic:"http://www.yamixed.com/static/images/logo_300x300.png",
     shortUrl:true,
     hideMore:true
   }
