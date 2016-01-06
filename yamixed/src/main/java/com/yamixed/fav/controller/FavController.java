@@ -501,7 +501,7 @@ public class FavController {
 	 * @param key
 	 * @return
 	 */
-	@RequestMapping(value="/search",method=RequestMethod.POST)
+	@RequestMapping(value="/search")
 	public String search(@RequestParam("channelid")Long channelid,@RequestParam("key")String key,HttpServletRequest request,Model model){
 		if(StringUtils.isEmpty(key)){
 			return "redirect:/fav/" + channelid;
