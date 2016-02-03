@@ -1,0 +1,127 @@
+<#import "/static/include/spring.ftl" as spring/>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="qc:admins" content="006177740760121452536375" />
+  <meta name="keywords" content="Paratubes,虚拟世界,虚拟人生" />
+  <meta name="description" content="Paratubes是一个在线二维虚拟人生游戏，你可以在这里与好友分享并创建属于自己的世界。">
+  <title>${title}Paratubes - 二维虚拟人生</title>
+  <link rel="shortcut icon" href="${rc.getContextPath()}/static/images/favicon.ico" type="image/x-icon">
+  <!-- Bootstrap -->
+  <link href="${rc.getContextPath()}/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${rc.getContextPath()}/static/css/global.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      ${head}
+    </head>
+    <body>
+     <nav class="navbar navbar-static-top navbar-inverse" id="top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsemenu" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> 
+          <a href="/" class="navbar-brand">Paratubes</a>
+        </div>
+        <div class="collapse navbar-collapse bs-navbar-collapse" id="collapsemenu">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <span id="qqLoginBtn"></span>
+            </li>
+            <li>
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#aboutSite">关于</a>
+            </li> 
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="${rc.getContextPath()}/static/jquery/jquery-1.11.1.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="${rc.getContextPath()}/static/bootstrap/js/bootstrap.min.js"></script>
+    <#include "/static/include/common.ftl">  
+    ${body}
+    <footer>
+      <div class="container-fluid">
+      <!-- JiaThis Button BEGIN -->
+      <div class="jiathis_style shareTag" style="float:right;" data-url="http://www.yamixed.com" data-summary="Paratubes是一个在线二维虚拟人生游戏，你可以在这里与好友分享并创建属于自己的世界。" data-title="Paratubes" data-pic="http://www.yamixed.com/static/images/favicon.ico">
+        <a class="jiathis_button_qzone"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_tqq"></a>
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_renren"></a>
+        <a class="jiathis_button_xiaoyou"></a>
+      </div>
+      <script type="text/javascript" >
+      var jiathis_config={
+        url:"http://www.yamixed.com",
+        summary:"Paratubes是一个在线二维虚拟人生游戏，你可以在这里与好友分享并创建属于自己的世界。",
+        title:"Paratubes",
+        pic:"http://www.yamixed.com/static/images/favicon.ico",
+        shortUrl:true,
+        hideMore:true
+      }
+      </script>
+      <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js" charset="utf-8"></script>
+      <!-- JiaThis Button END -->
+      <div style="clear:both;"><p>Copyright © 2015 Paratubes</p></div>
+    </div> 
+  </footer>
+  <!--about my site-->
+<div class="modal fade" id="aboutSite" tabindex="-1" role="dialog" aria-labelledby="ParatubesLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="ParatubesLabel">Paratubes</h4>
+      </div>
+      <div class="modal-body">
+        <div class="logo">
+         <img src="${rc.getContextPath()}/static/images/favicon.ico"/>
+       </div> 
+       <div class="siteInfo">
+         <span><h4>Paratubes是一个在线二维虚拟人生游戏，你可以在这里与好友分享并创建属于自己的世界。</h4><h6>联系我:true2green@qq.com</h6></span>
+       </div>  
+       <div class="clear"></div>
+     </div>
+     <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    </div>
+  </div>
+</div>
+</div>
+  <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101202925" data-redirecturi="http://www.yamixed.com${rc.getContextPath()}" data-callback="true" charset="utf-8"></script> 
+  <script type="text/javascript">
+            (function qqLogin(){
+               var a = QC.Login({
+                 btnId:"qqLoginBtn",
+                 size: "A_M" 
+               },function(reqData, opts){
+                  var figureurl = reqData.figureurl;
+                  var nickname = reqData.nickname;
+                  if(QC.Login.check()){
+                     /*QC.Login.getMe(function(openId, accessToken){
+                       $('#openId').val(openId);
+                       $('#accessToken').val(accessToken); 
+                       $('#nickname').val(nickname);
+                       QC.api("get_user_info", {}).success(function(s){
+                         $('#avatar').val(s.data.figureurl_2);
+                         $('#qqLoginForm').submit();  
+                       });
+                     }); */
+                   }
+                }); 
+            })();
+  </script>
+</body>
+</html>

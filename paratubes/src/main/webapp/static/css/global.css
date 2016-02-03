@@ -1,0 +1,86 @@
+
+#top{
+  margin-bottom: 0;
+}
+
+.sidebar{
+	background-color: #D4D4D4;
+    position: absolute;
+    top: 55px;
+    bottom: -20px;
+    padding-top: 15px;
+    border-right: 1px solid grey; 
+}
+
+.main{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+#map{
+	width: 100%;
+	height: 93vh;
+}
+
+#toolbar{
+   width: 100%;
+   height: 40px;
+   background-color:#D4D4D4;
+   border-bottom: 1px solid grey; 
+   padding-top: 8px;
+}
+
+#toolbar_ul{
+	list-style: none;
+	padding-left: 10px;
+	margin-bottom: 0;
+}
+
+#toolbar_ul li{
+	display: inline-block;
+}
+
+#playCanvas{
+   width: 100%;
+   height: 87vh;
+}
+
+
+footer{
+	padding-bottom: 1vh;
+	text-align: center;
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#foot_menu{
+   float: left;
+}
+
+#foot_menu a{
+	color: #9d9d9d;
+	text-decoration: none;
+}
+
+#foot_menu a:hover{
+	color: #ffffff;
+}
+
+.logo,.siteInfo{
+   float: left;
+}
+
+.siteInfo{
+	margin-left: 10px;
+	width: 85%;
+}
+
+.clear{
+	clear: both;
+}
+
+#qqLoginBtn{
+	padding: 15px;
+    display: block;
+}
