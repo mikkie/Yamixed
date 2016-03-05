@@ -355,7 +355,8 @@ var init = function(){
 	bind.choose_tag();
 	var $oldtag = $('#' + IDS.OLD_TAG);
 	if($oldtag.length > 0){
-       $curTag.text($oldtag.val());
+	   $('#' + IDS.CUR_TAG).text($oldtag.val());
+       $('#' + IDS.CUR_TAG).text($oldtag.val());
 	}
 };
 

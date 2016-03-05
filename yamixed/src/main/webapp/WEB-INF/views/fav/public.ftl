@@ -25,7 +25,7 @@
 				<a href="${rc.getContextPath()}/fav/${channel.id}/${tags.number-1}/40">上一页</a>
 			</li>
 			</#if>
-			<#if (tags.number<tags.totalPages)>
+			<#if (tags.number<tags.totalPages-1)>
 			<li class="next">
 				<a href="${rc.getContextPath()}/fav/${channel.id}/${tags.number+1}/40">下一页</a>
 			</li>
@@ -67,7 +67,7 @@
 					<a href="javascript:void(0);" class="upAndDown" isUp="false" articleId="${article.id}"><span class="glyphicon glyphicon-thumbs-down"></span><span class="badge">${article.down}</span></a>
 				</div>	
 				<div class="articleowner media-body-right">
-					<a href="${rc.getContextPath()}/fav/userfav/${channel.id}/${article.user.id}/${article.tag.id}/0">
+					<a href="${rc.getContextPath()}/fav/userfav/${channel.id}/${article.user.id}/${article.tag.id}/0/${tags.number}/40">
 						<img src="${article.user.avatar}" alt="..." class="img-circle"/>
 					</a>
 				</div>	

@@ -46,7 +46,7 @@
               <a href="${rc.getContextPath()}/fav/${channel.id}/0/40">${channel.name}</a>
             </li>
             <li>
-              <a href="${rc.getContextPath()}/fav/myfav/${channel.id}">我的书签</a>
+              <a href="${rc.getContextPath()}/fav/myfav/${channel.id}/0/40">我的书签</a>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">

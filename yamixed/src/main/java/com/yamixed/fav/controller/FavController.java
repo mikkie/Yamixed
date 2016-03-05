@@ -131,8 +131,10 @@ public class FavController {
 		return "/fav/public";
 	}
 
-	@RequestMapping("/myfav/{channelid}")
+	@RequestMapping("/myfav/{channelid}/{tagPage}/{tagSize}")
 	public String myFav(@PathVariable("channelid") Long channelid,
+			@PathVariable("tagPage") Integer tagPage,
+			@PathVariable("tagSize") Integer tagSize,
 			HttpServletRequest request, Model model) {
 		Object o = request.getSession().getAttribute(Constants.Session.USER);
 		// 防止盗入
@@ -141,8 +143,8 @@ public class FavController {
 		}
 		User currentUser = (User) o;
 		User user = userService.findOne(currentUser.getId());
-		List<Tag> tags = user.getTags();
-		if (CollectionUtils.isEmpty(tags)) {
+		Page<Tag> tags = user.getTagsByPage(null,tagPage,tagSize);
+		if (tags.getTotalElements() == 0) {
 			model.addAttribute("editable", true);
 			Channel channel = channelService.findOne(channelid);
 			model.addAttribute("channel", channel);
@@ -152,17 +154,19 @@ public class FavController {
 			return "/fav/myfav";
 		}
 		Long userid = currentUser.getId();
-		Long tagid = tags.get(0).getId();
-		String url = "redirect:/fav/userfav/%s/%s/%s/0";
+		Long tagid = tags.getContent().get(0).getId();
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
 		url = String.format(url, channelid, userid, tagid);
 		return url;
 	}
 
-	@RequestMapping("/userfav/{channelid}/{userid}/{tagid}/{page}")
+	@RequestMapping("/userfav/{channelid}/{userid}/{tagid}/{page}/{tagPage}/{tagSize}")
 	public String userFav(@PathVariable("channelid") Long channelid,
 			@PathVariable("userid") Long userid,
 			@PathVariable("tagid") Long tagid,
-			@PathVariable("page") Integer pageNum, Model model,
+			@PathVariable("page") Integer pageNum, 
+			@PathVariable("tagPage") Integer tagPage,
+			@PathVariable("tagSize") Integer tagSize,Model model,
 			HttpServletRequest request) {
 		Channel channel = channelService.findOne(channelid);
 		model.addAttribute("channel", channel);
@@ -176,7 +180,7 @@ public class FavController {
 						.longValue()) {
 			model.addAttribute("editable", true);
 		}
-		List<Tag> tags = user.getTags();
+		Page<Tag> tags = user.getTagsByPage(tagid,tagPage,tagSize);
 		model.addAttribute("tags", tags);
 		Page<Article> articlePage = articleService.findByUserAndTagPage(userid,
 				tagid, pageNum);
@@ -369,7 +373,7 @@ public class FavController {
 		if(article == null){
 			return "redirect:/fav/myfav/" + channelid;
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
 		url = String.format(url, channelid, article.getUser().getId(), article.getTag().getId());
 		return url;
 	}
@@ -388,7 +392,7 @@ public class FavController {
 		if (!(currentUser instanceof User)) {
 			return "redirect:/fav/" + channelid + "?op=login";
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
 		url = String.format(url, channelid, currentUser.getId(), article.getTag().getId());
 		return url;
 	}
@@ -414,7 +418,7 @@ public class FavController {
 		if(user == null){
 			return "redirect:/fav/" + channelid + "/0/40";
 		}
-		return "redirect:/fav/myfav/" + channelid;
+		return "redirect:/fav/myfav/" + channelid + "/0/40";
 	}
 
 	@RequestMapping(value = "/logout/{channelid}", method = RequestMethod.GET)
@@ -452,7 +456,7 @@ public class FavController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
 		url = String.format(url, channelid, userid, tagid);
 		return url;
 	}

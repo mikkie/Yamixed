@@ -15,11 +15,20 @@
  */
 package com.yamixed.fav.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.util.CollectionUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yamixed.base.entity.IdEntity;
@@ -94,9 +103,38 @@ public class User extends IdEntity{
 	public List<Tag> getTags() {
 		return tags;
 	}
-
+	
+	
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
+	}
+	
+	
+	/**
+	 * 分页获取标签
+	 * @return
+	 */
+	@Transient
+	@JsonIgnore
+	public Page<Tag> getTagsByPage(Long tagId,int pageNum,int pageSize){
+		if(CollectionUtils.isEmpty(tags)){
+			return new PageImpl<Tag>(new ArrayList<Tag>(),new PageRequest(0, pageSize, new Sort(Direction.DESC, "id")),0); 
+		}
+		//有标签id则计算页数
+		if(tagId != null){
+			for(int i = 0; i < tags.size(); i++){
+				if(tags.get(i).getId().longValue() == tagId){
+					pageNum = i /40;
+				}
+			}
+		}
+		PageRequest pr = new PageRequest(pageNum, pageSize, new Sort(Direction.DESC, "id"));
+		int start = pageNum * pageSize;
+		List<Tag> result = new ArrayList<Tag>();
+		for(int i = start; i < start + pageSize && i < tags.size(); i++){
+			result.add(tags.get(i));
+		}
+		return new PageImpl<Tag>(result,pr,tags.size()); 
 	}
 	
 	
