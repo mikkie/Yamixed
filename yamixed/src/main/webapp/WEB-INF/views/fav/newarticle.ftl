@@ -10,7 +10,11 @@
 	<div>
 		<form id="saveArticleForm" class="form-horizontal" role="form" method="post" action="${rc.getContextPath()}/fav/saveArticle/${channel.id}">
 			<input type="hidden" name="channelid" value="${channel.id}" id="channelid"/>
-			<input type="hidden" name="selectTagId" id="selectTagId" value=""/>
+            <#if oldtag??>  
+			   <input type="hidden" name="selectTagId" id="selectTagId" value="${oldtag.id}"/>
+            <#else>
+               <input type="hidden" name="selectTagId" id="selectTagId" value=""/> 
+            </#if>  
 			<div class="form-group">
 				<label for="tag" class="col-sm-offset-1 col-sm-1 control-label">标签</label>
 				<div class="col-sm-8" name="tag">
@@ -21,7 +25,7 @@
 							<span class="sr-only">Toggle Dropdown</span>
 						</button>
 						<#if oldtag??>
-						<input type="hidden" id="oldTag" value="${oldtag}"/>
+						<input type="hidden" id="oldTag" value="${oldtag.name}"/>
 						</#if>
 						<ul class="dropdown-menu" role="menu" id="tagslist">
 							<#if taglist??>

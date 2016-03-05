@@ -74,7 +74,10 @@ public class FavController {
 	private IArticleService articleService;
 
 	@Autowired
-	private IChannelService channelService;
+	private IChannelService channelService; 
+	
+	//标签页大小
+	private static final int TAG_SIZE = 40;
 
 	/**
 	 * 公共
@@ -139,7 +142,7 @@ public class FavController {
 		Object o = request.getSession().getAttribute(Constants.Session.USER);
 		// 防止盗入
 		if (!(o instanceof User)) {
-			return "redirect:/fav/" + channelid + "/0/40?op=login";
+			return "redirect:/fav/" + channelid + "/0/" + TAG_SIZE + "?op=login";
 		}
 		User currentUser = (User) o;
 		User user = userService.findOne(currentUser.getId());
@@ -155,7 +158,7 @@ public class FavController {
 		}
 		Long userid = currentUser.getId();
 		Long tagid = tags.getContent().get(0).getId();
-		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/" + TAG_SIZE;
 		url = String.format(url, channelid, userid, tagid);
 		return url;
 	}
@@ -234,13 +237,13 @@ public class FavController {
 				Constants.Session.USER);
 		// 防止盗入
 		if (!(currentUser instanceof User)) {
-			return "redirect:/fav/" + channelid + "?op=login";
+			return "redirect:/fav/" + channelid + "/0/" + TAG_SIZE + "?op=login";
 		}
 		String oldtag = request.getParameter("oldtag");
 		if(!StringUtils.isEmpty(oldtag)){
 			Tag tag = tagService.findOne(Long.valueOf(oldtag));
 			if(tag != null){
-				model.addAttribute("oldtag", tag.getName());
+				model.addAttribute("oldtag", tag);
 			}
 		}
 		List<Tag> tagList = tagService.findByChannelID(channelid);
@@ -260,7 +263,7 @@ public class FavController {
 				Constants.Session.USER);
 		// 防止盗入
 		if (!(currentUser instanceof User)) {
-			return "redirect:/fav/" + channelid + "?op=login";
+			return "redirect:/fav/" + channelid + "/0/"+ TAG_SIZE +"?op=login";
 		}
 		Article article = articleService.findOne(articleid);
 		List<Tag> tagList = tagService.findByChannelID(channelid);
@@ -373,7 +376,7 @@ public class FavController {
 		if(article == null){
 			return "redirect:/fav/myfav/" + channelid;
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/" + TAG_SIZE;
 		url = String.format(url, channelid, article.getUser().getId(), article.getTag().getId());
 		return url;
 	}
@@ -392,7 +395,7 @@ public class FavController {
 		if (!(currentUser instanceof User)) {
 			return "redirect:/fav/" + channelid + "?op=login";
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/" + TAG_SIZE;
 		url = String.format(url, channelid, currentUser.getId(), article.getTag().getId());
 		return url;
 	}
@@ -416,16 +419,16 @@ public class FavController {
 			HttpServletRequest request) {
 		User user = userService.login(request);
 		if(user == null){
-			return "redirect:/fav/" + channelid + "/0/40";
+			return "redirect:/fav/" + channelid + "/0/" + TAG_SIZE;
 		}
-		return "redirect:/fav/myfav/" + channelid + "/0/40";
+		return "redirect:/fav/myfav/" + channelid + "/0/"  + TAG_SIZE;
 	}
 
 	@RequestMapping(value = "/logout/{channelid}", method = RequestMethod.GET)
 	public String logout(@PathVariable("channelid") Long channelid,
 			HttpServletRequest request) {
 		request.getSession().setAttribute(Constants.Session.USER, null);
-		return "redirect:/fav/" + channelid + "/0/40?op=logout";
+		return "redirect:/fav/" + channelid + "/0/"+ TAG_SIZE +"?op=logout";
 	}
 
 	/**
@@ -456,7 +459,7 @@ public class FavController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/40";
+		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/" + TAG_SIZE;
 		url = String.format(url, channelid, userid, tagid);
 		return url;
 	}
@@ -501,7 +504,7 @@ public class FavController {
 		String channelId = request.getParameter("channelid");
 		String tagId = request.getParameter("tagid");
 		redirectAttributes.addAttribute("cb", "cb");
-		return "forward:/fav/" + channelId + "/" + tagId + "/0/0/40";
+		return "forward:/fav/" + channelId + "/" + tagId + "/0/0/" + TAG_SIZE;
 	}
 	
 	
@@ -514,7 +517,7 @@ public class FavController {
 	@RequestMapping(value="/search")
 	public String search(@RequestParam("channelid")Long channelid,@RequestParam("key")String key,HttpServletRequest request,Model model){
 		if(StringUtils.isEmpty(key)){
-			return "redirect:/fav/" + channelid + "/0/40";
+			return "redirect:/fav/" + channelid + "/0/" + TAG_SIZE;
 		}
 		Object o = request.getSession().getAttribute(Constants.Session.USER);
 		List<Link> links = linkService.findLinks(channelid,key,(User)o);
