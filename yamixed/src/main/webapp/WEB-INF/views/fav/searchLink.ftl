@@ -38,7 +38,7 @@
 			</div>
 			</#list>
 			<#else>
-			  暂无任何书签<a href="${rc.getContextPath()}/fav/${channel.id}" class="btn btn-info" role="button">返回</a>
+			  暂无任何书签<a href="${rc.getContextPath()}/fav/${channel.id}/0/40" class="btn btn-info" role="button">返回</a>
 			</#if>
 		</div>
 		<script type="text/javascript" src="${rc.getContextPath()}/static/fav/js/article.js"></script>

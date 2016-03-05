@@ -24,6 +24,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
@@ -59,7 +61,8 @@ public class TagServiceImpl extends CrudServiceImpl<Tag, ITagDao> implements ITa
 	}
 
 	@Override
-	public List<Tag> findMostPopularTagByChanndelID(final Long channelID) {
+	public Page<Tag> findMostPopularTagByChanndelID(final int pageNum,final int pageSize,final Long channelID) {
+		PageRequest pr = new PageRequest(pageNum, pageSize, new Sort(Direction.DESC, "hit"));
 		Specification<Tag> tagSpec = new Specification<Tag>() {
 
 			@Override
@@ -70,12 +73,32 @@ public class TagServiceImpl extends CrudServiceImpl<Tag, ITagDao> implements ITa
 				return null;
 			}
 		};
-		return dao.findAll(tagSpec, new Sort(Direction.DESC, "hit"));
+		return dao.findAll(tagSpec, pr);
 	}
 
+	
+	
 	@Override
 	public List<Tag> findByName(String name) {
 		return dao.findByName(name);
+	}
+
+	
+	
+	@Override
+	public Page<Tag> findTagsByPage(final long channelId,final int pageNum,final int pageSize) {
+		PageRequest pr = new PageRequest(pageNum, pageSize, new Sort(
+				Direction.DESC, "hit"));
+		return dao.findAll(new Specification<Tag>() {
+
+			@Override
+			public Predicate toPredicate(Root<Tag> root, CriteriaQuery<?> cq,
+					CriteriaBuilder cb) {
+				Path<Long> channelIdpath = root.get("channel").get("id");
+				cq.where(cb.equal(channelIdpath, channelId));
+				return null;
+			}
+		}, pr);
 	}
 
 }

@@ -21,6 +21,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yamixed.base.entity.IdEntity;
 
 /**
@@ -88,6 +89,7 @@ public class User extends IdEntity{
 	 * 多对多关系被维护端
 	 * @return
 	 */
+	@JsonIgnore
 	@ManyToMany(cascade=CascadeType.REFRESH,mappedBy="users")
 	public List<Tag> getTags() {
 		return tags;

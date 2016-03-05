@@ -9,13 +9,13 @@
 <body>
 	<div>
 		<form id="saveArticleForm" class="form-horizontal" role="form" method="post" action="${rc.getContextPath()}/fav/saveArticle/${channel.id}">
-			<input type="hidden" name="channelid" value="${channel.id}"/>
+			<input type="hidden" name="channelid" value="${channel.id}" id="channelid"/>
 			<input type="hidden" name="selectTagId" id="selectTagId" value=""/>
 			<div class="form-group">
 				<label for="tag" class="col-sm-offset-1 col-sm-1 control-label">标签</label>
 				<div class="col-sm-8" name="tag">
 					<div id="tagSelect" class="btn-group" style="float:left;">
-						<button type="button" class="btn btn-warning" id="curTag">javascript</button>
+						<button type="button" class="btn btn-warning" id="curTag">选择书签</button>
 						<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 							<span class="caret"></span>
 							<span class="sr-only">Toggle Dropdown</span>
@@ -85,6 +85,33 @@
 				</div>
 			</div>
 		</form>
+	</div>
+	<div class="modal fade" id="tagDialog" tabindex="-1" role="dialog" aria-labelledby="cateLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width:700px;">
+			<div class="modal-content">
+			    <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="tagLabel">选择标签</h4>
+				</div>
+				<div class="modal-body" style="min-height:200px;">
+				   <div id="tagdiv">
+				   	 <ul id="tagul">
+				   	 </ul>
+				   </div>
+				   <ul id="tagpage" class="pager">
+				     <li id="tagpre" class="previous">
+				        <a href="javascript:void(0);">上一页</a>
+			         </li>
+			         <li id="tagnext" class="next">
+				        <a href="javascript:void(0);">下一页</a>
+			         </li>
+				   </ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="chooseTag" class="btn btn-primary" disabled="disabled">确定</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="modal fade" id="linkDialog" tabindex="-1" role="dialog" aria-labelledby="cateLabel" aria-hidden="true">
 		<div class="modal-dialog" style="width:700px;">
@@ -174,6 +201,11 @@
 	</div>
 	</div>
 	</div>
+	</#noparse>
+	</script>
+	<script id="tagTemp" type="text/html">
+	<#noparse>
+	<li class="tagli"><button type="button" data="${id}" class="tag btn btn-warning btn-xs">${name}</button></li>
 	</#noparse>
 	</script>
 </body>

@@ -17,6 +17,8 @@ package com.yamixed.fav.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.yamixed.base.service.ICrudService;
 import com.yamixed.fav.entity.Tag;
 
@@ -29,10 +31,13 @@ public interface ITagService extends ICrudService<Tag>{
 	public List<Tag> findByChannelID(Long channelID);
 	
 	
-	public List<Tag> findMostPopularTagByChanndelID(final Long channelID);
+	public Page<Tag> findMostPopularTagByChanndelID(final int pageNum,int pageSize,final Long channelID);
 	
 	
 	public List<Tag> findByName(String name);
+
+
+	public Page<Tag> findTagsByPage(final long channelId,final int pageNum,final int pageSize);
 	
 	
 }

@@ -37,3 +37,24 @@
   color: #000000;
   text-decoration: none;
 }
+
+#tagul{
+  padding-left: 0px;
+}
+
+.tagli{
+  list-style: none;
+  list-style-type: none;
+  float: left;
+  margin: 3px;
+}
+
+#tagpage{
+  clear : both;
+  padding-top: 20px;
+}
+
+
+#tagpage li{
+  display: none;
+}

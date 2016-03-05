@@ -81,12 +81,15 @@ public class FavController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/{channelid}")
+	@RequestMapping("/{channelid}/{tagPage}/{tagSize}")
 	public String favPublic(@PathVariable("channelid") Long channelid,
+			@PathVariable("tagPage") Integer tagPage,
+			@PathVariable("tagSize") Integer tagSize,
 			Model model, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
-		List<Tag> tags = tagService.findMostPopularTagByChanndelID(channelid);
-		Assert.notEmpty(tags, "无法获取最受欢迎的标签");
+		Page<Tag> tags = tagService.findMostPopularTagByChanndelID(tagPage,tagSize,channelid);
+		Assert.notNull(tags, "无法获取最受欢迎的标签");
+		Assert.notEmpty(tags.getContent(), "无法获取最受欢迎的标签");
 		String op = request.getParameter("op");
 		if (!StringUtils.isEmpty(op)) {
 			redirectAttributes.addAttribute("op", op);
@@ -95,13 +98,16 @@ public class FavController {
 		if (!StringUtils.isEmpty(cb)) {
 			redirectAttributes.addAttribute("cb", cb);
 		}
-		return "redirect:/fav/" + channelid + "/" + tags.get(0).getId() + "/0";
+		return "redirect:/fav/" + channelid + "/" + tags.getContent().get(0).getId() + "/0/" + tagPage + "/" + tagSize;
 	}
 
-	@RequestMapping("/{channelid}/{tagid}/{page}")
+	@RequestMapping("/{channelid}/{tagid}/{page}/{tagPage}/{tagSize}")
 	public String favIndex(@PathVariable("channelid") Long channelid,
 			@PathVariable("tagid") Long tagid,
-			@PathVariable("page") Integer pageNum, Model model,
+			@PathVariable("page") Integer pageNum,
+			@PathVariable("tagPage") Integer tagPage,
+			@PathVariable("tagSize") Integer tagSize,
+			Model model,
 			HttpServletRequest request) {
 		// 操作
 		String op = request.getParameter("op");
@@ -115,7 +121,7 @@ public class FavController {
 		}
 		Channel channel = channelService.findOne(channelid);
 		model.addAttribute("channel", channel);
-		List<Tag> tags = tagService.findMostPopularTagByChanndelID(channelid);
+		Page<Tag> tags = tagService.findMostPopularTagByChanndelID(tagPage,tagSize,channelid);
 		model.addAttribute("tags", tags);
 		Page<Article> articlePage = articleService
 				.findByTagPage(tagid, pageNum);
@@ -131,7 +137,7 @@ public class FavController {
 		Object o = request.getSession().getAttribute(Constants.Session.USER);
 		// 防止盗入
 		if (!(o instanceof User)) {
-			return "redirect:/fav/" + channelid + "?op=login";
+			return "redirect:/fav/" + channelid + "/0/40?op=login";
 		}
 		User currentUser = (User) o;
 		User user = userService.findOne(currentUser.getId());
@@ -406,7 +412,7 @@ public class FavController {
 			HttpServletRequest request) {
 		User user = userService.login(request);
 		if(user == null){
-			return "redirect:/fav/" + channelid;
+			return "redirect:/fav/" + channelid + "/0/40";
 		}
 		return "redirect:/fav/myfav/" + channelid;
 	}
@@ -415,7 +421,7 @@ public class FavController {
 	public String logout(@PathVariable("channelid") Long channelid,
 			HttpServletRequest request) {
 		request.getSession().setAttribute(Constants.Session.USER, null);
-		return "redirect:/fav/" + channelid + "?op=logout";
+		return "redirect:/fav/" + channelid + "/0/40?op=logout";
 	}
 
 	/**
@@ -491,7 +497,7 @@ public class FavController {
 		String channelId = request.getParameter("channelid");
 		String tagId = request.getParameter("tagid");
 		redirectAttributes.addAttribute("cb", "cb");
-		return "forward:/fav/" + channelId + "/" + tagId + "/0";
+		return "forward:/fav/" + channelId + "/" + tagId + "/0/0/40";
 	}
 	
 	
@@ -504,7 +510,7 @@ public class FavController {
 	@RequestMapping(value="/search")
 	public String search(@RequestParam("channelid")Long channelid,@RequestParam("key")String key,HttpServletRequest request,Model model){
 		if(StringUtils.isEmpty(key)){
-			return "redirect:/fav/" + channelid;
+			return "redirect:/fav/" + channelid + "/0/40";
 		}
 		Object o = request.getSession().getAttribute(Constants.Session.USER);
 		List<Link> links = linkService.findLinks(channelid,key,(User)o);
