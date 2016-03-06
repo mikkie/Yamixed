@@ -97,9 +97,8 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 	}
 
 	@Override
-	public Article updateArticle(Long articleid, HttpServletRequest request) {
+	public Article updateArticle(Article article, HttpServletRequest request) {
 		try {
-			Article article = dao.findOne(articleid);
 			if (article == null) {
 				return null;
 			}
@@ -143,7 +142,7 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 	 * @param request
 	 * @return
 	 */
-	private boolean needUpdateTag(Article article, HttpServletRequest request) {
+	public boolean needUpdateTag(Article article, HttpServletRequest request) {
 		String customTag = request.getParameter("customTag");
 		if(!StringUtils.isEmpty(customTag)){
 			return true;

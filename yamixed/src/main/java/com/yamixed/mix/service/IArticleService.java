@@ -37,7 +37,7 @@ public interface IArticleService extends ICrudService<Article>{
 
 	public void upAndDown(boolean isUp, Long articleId);
 
-	public Article updateArticle(Long articleid, HttpServletRequest request);
+	public Article updateArticle(Article article, HttpServletRequest request);
 	
 	/**
 	 * 分页搜索标签，用户登录过则包含隐私标签，否则为公开标签 
@@ -47,5 +47,7 @@ public interface IArticleService extends ICrudService<Article>{
 	 * @return
 	 */
 	public Page<Article> searchByTagPage(final Long tagid,final int pageNum,final User user);
+	
+	public boolean needUpdateTag(Article article, HttpServletRequest request);
 
 }

@@ -388,7 +388,9 @@ public class FavController {
 			@PathVariable("tagid") Long tagid,
 			@PathVariable("articleid") Long articleid,
 			HttpServletRequest request) {
-		Article article = articleService.updateArticle(articleid, request);
+		Article article = articleService.findOne(articleid);
+		boolean updateTag = articleService.needUpdateTag(article, request);
+		article = articleService.updateArticle(article, request);
 		if(article == null){
 			return "redirect:/fav/myfav/" + channelid;
 		}
@@ -399,7 +401,7 @@ public class FavController {
 		}
 		String arcNum = "0";
 		String temp = request.getParameter("arcNum");
-		if(!StringUtils.isEmpty(temp)){
+		if(!StringUtils.isEmpty(temp) && !updateTag){
 			arcNum = temp;
 		}
 		String url = "redirect:/fav/userfav/%s/%s/%s/%s/0/" + TAG_SIZE;
