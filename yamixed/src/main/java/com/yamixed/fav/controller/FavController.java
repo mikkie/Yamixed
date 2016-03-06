@@ -270,6 +270,8 @@ public class FavController {
 		model.addAttribute("taglist", tagList);
 		model.addAttribute("article", article);
 		model.addAttribute("channelid", channelid);
+		String arcNum = request.getParameter("arcNum");
+		model.addAttribute("arcNum", arcNum);
 		clearOldSessionData(request);
 		return "/fav/editarticle";
 	}
@@ -395,8 +397,13 @@ public class FavController {
 		if (!(currentUser instanceof User)) {
 			return "redirect:/fav/" + channelid + "?op=login";
 		}
-		String url = "redirect:/fav/userfav/%s/%s/%s/0/0/" + TAG_SIZE;
-		url = String.format(url, channelid, currentUser.getId(), article.getTag().getId());
+		String arcNum = "0";
+		String temp = request.getParameter("arcNum");
+		if(!StringUtils.isEmpty(temp)){
+			arcNum = temp;
+		}
+		String url = "redirect:/fav/userfav/%s/%s/%s/%s/0/" + TAG_SIZE;
+		url = String.format(url, channelid, currentUser.getId(), article.getTag().getId(),arcNum);
 		return url;
 	}
 

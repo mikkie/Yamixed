@@ -8,7 +8,11 @@
 </head>
 <body>
 	<div>
+	    <#if arcNum??>
+	    <form id="saveArticleForm" class="form-horizontal" role="form" method="post" action="${rc.getContextPath()}/fav/updateArticle/${channel.id}/${article.tag.id}/${article.id}?arcNum=${arcNum}">
+	    <#else>
 		<form id="saveArticleForm" class="form-horizontal" role="form" method="post" action="${rc.getContextPath()}/fav/updateArticle/${channel.id}/${article.tag.id}/${article.id}">
+	    </#if>
 			<input type="hidden" name="channelid" value="${channel.id}"/>
 			<input type="hidden" name="selectTagId" id="selectTagId" value="${article.tag.id}"/>
 			<div class="form-group">

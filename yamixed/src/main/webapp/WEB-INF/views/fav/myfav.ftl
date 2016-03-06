@@ -90,7 +90,7 @@
 					</div>	
 					<#if editable??>
 				    <div class="media-body-right" style="padding-top:10px;">
-					  <button type="button" class="btn btn-info btn-xs" onclick="window.location.href='${rc.getContextPath()}/fav/editarticle/${channel.id}/${article.id}'">编辑</button>
+					  <button type="button" class="btn btn-info btn-xs" onclick="window.location.href='${rc.getContextPath()}/fav/editarticle/${channel.id}/${article.id}?arcNum=${pageNum}'">编辑</button>
 					  <button type="button" class="btn btn-danger btn-xs" onclick="if(confirm('确定删除该书签?')){window.location.href='${rc.getContextPath()}/fav/del/${channel.id}/${loginUser.id}/${tagid}/${article.id}'}">删除</button>
 				    </div>	
 				    </#if>
