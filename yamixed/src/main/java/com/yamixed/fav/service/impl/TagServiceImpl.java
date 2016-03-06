@@ -15,6 +15,7 @@
  */
 package com.yamixed.fav.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -99,6 +100,26 @@ public class TagServiceImpl extends CrudServiceImpl<Tag, ITagDao> implements ITa
 				return null;
 			}
 		}, pr);
+	}
+
+	@Override
+	public List<Tag> searchTags(final Long channelid,final String key) {
+		return dao.findAll(new Specification<Tag>() {
+
+			@Override
+			public Predicate toPredicate(Root<Tag> root, CriteriaQuery<?> cq,
+					CriteriaBuilder cb) {
+				List<Predicate> predicates = new ArrayList<Predicate>();
+				Path<Long> channelIdPath = root.get("channel").get("id");
+				//频道
+				predicates.add(cb.equal(channelIdPath, channelid));
+				//名称
+				Path<String> namePath = root.get("name");
+				predicates.add(cb.like(namePath, "%" + key + "%"));
+				cq.where(predicates.toArray(new Predicate[predicates.size()]));
+				return null;
+			}
+		});
 	}
 
 }

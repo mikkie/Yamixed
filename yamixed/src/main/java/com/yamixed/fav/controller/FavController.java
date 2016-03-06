@@ -515,17 +515,45 @@ public class FavController {
 	 * @return
 	 */
 	@RequestMapping(value="/search")
-	public String search(@RequestParam("channelid")Long channelid,@RequestParam("key")String key,HttpServletRequest request,Model model){
-		if(StringUtils.isEmpty(key)){
+	public String search(@RequestParam("channelid")Long channelid,@RequestParam("key")String key,@RequestParam("isTag")Boolean isTag,HttpServletRequest request,Model model){
+		if(StringUtils.isEmpty(key) || isTag == null){
 			return "redirect:/fav/" + channelid + "/0/" + TAG_SIZE;
 		}
 		Object o = request.getSession().getAttribute(Constants.Session.USER);
-		List<Link> links = linkService.findLinks(channelid,key,(User)o);
-		Channel channel = channelService.findOne(channelid);
-		model.addAttribute("channel", channel);
-		model.addAttribute("key", key);
-		model.addAttribute("links", links);
-		return "fav/searchLink";
+		//搜索链接
+		if(!isTag){
+			List<Link> links = linkService.findLinks(channelid,key,(User)o);
+			Channel channel = channelService.findOne(channelid);
+			model.addAttribute("channel", channel);
+			model.addAttribute("key", key);
+			model.addAttribute("links", links);
+			return "fav/searchLink";
+		}
+		else{
+			List<Tag> tags = tagService.searchTags(channelid,key);
+			Channel channel = channelService.findOne(channelid);
+			model.addAttribute("channel", channel);
+			model.addAttribute("key", key);
+			model.addAttribute("tags", tags);
+			model.addAttribute("searchTag", true);
+			//获取文章
+			if(!CollectionUtils.isEmpty(tags)){
+				Long id = tags.get(0).getId();
+				String tagId = request.getParameter("tagId");
+				if(!StringUtils.isEmpty(tagId)){
+					id = Long.valueOf(tagId);
+				}
+				int page = 0;
+				String arcPage = request.getParameter("arcPage");
+				if(!StringUtils.isEmpty(arcPage)){
+					page = Integer.valueOf(arcPage); 
+				}
+				Page<Article> articles = articleService.searchByTagPage(id, page,(User)o);
+				model.addAttribute("tagId", id);
+				model.addAttribute("articles", articles);
+			}
+			return "fav/searchTag";
+		}
 	}
 
 }

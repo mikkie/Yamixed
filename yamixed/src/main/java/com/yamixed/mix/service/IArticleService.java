@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 
 import com.yamixed.base.service.ICrudService;
 import com.yamixed.fav.entity.Article;
+import com.yamixed.fav.entity.User;
 
 /**
  * @author Administrator
@@ -37,5 +38,14 @@ public interface IArticleService extends ICrudService<Article>{
 	public void upAndDown(boolean isUp, Long articleId);
 
 	public Article updateArticle(Long articleid, HttpServletRequest request);
+	
+	/**
+	 * 分页搜索标签，用户登录过则包含隐私标签，否则为公开标签 
+	 * @param tagid
+	 * @param pageNum
+	 * @param user
+	 * @return
+	 */
+	public Page<Article> searchByTagPage(final Long tagid,final int pageNum,final User user);
 
 }

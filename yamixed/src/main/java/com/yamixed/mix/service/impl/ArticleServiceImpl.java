@@ -64,7 +64,7 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 		implements IArticleService {
 
 	// 每日显示mix数
-	private static final int DAY_MIX_SIZE = 30;
+	private static final int DAY_MIX_SIZE = 1;
 
 	@Autowired
 	private ITagDao tagDao;
@@ -330,6 +330,36 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 		} else {
 			article.setDown(article.getDown() + 1);
 		}
+	}
+
+	@Override
+	public Page<Article> searchByTagPage(final Long tagid,final int pageNum,final User user) {
+		PageRequest pr = new PageRequest(pageNum, DAY_MIX_SIZE, new Sort(
+				Direction.DESC, "id"));
+		Specification<Article> articleSpec = new Specification<Article>() {
+
+			@Override
+			public Predicate toPredicate(Root<Article> root,
+					CriteriaQuery<?> query, CriteriaBuilder cb) {
+				List<Predicate> predicates = new ArrayList<Predicate>();
+				Path<Object> tagPath = root.get("tag").get("id");
+				predicates.add(cb.equal(tagPath, tagid));
+				Path<Boolean> privatedPath = root.get("privated");
+				//未登录使用公开
+				if(user == null){
+					predicates.add(cb.equal(privatedPath, false));
+				}
+				//登录为公开及隐私
+				else{
+					Path<Long> userIdPath = root.get("user").get("id");
+					Predicate pre2 = cb.and(cb.equal(privatedPath, true),cb.equal(userIdPath, user.getId()));
+					predicates.add(cb.or(cb.equal(privatedPath, false),pre2));
+				}
+				query.where(predicates.toArray(new Predicate[predicates.size()]));
+				return null;
+			}
+		};
+		return (Page<Article>) dao.findAll(articleSpec, pr);
 	}
 
 }

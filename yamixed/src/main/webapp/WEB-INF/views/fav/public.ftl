@@ -22,12 +22,12 @@
 		<ul class="pager">
 			<#if (tags.number>0)>
 			<li class="previous">
-				<a href="${rc.getContextPath()}/fav/${channel.id}/${tags.number-1}/40">上一页</a>
+				<a href="${rc.getContextPath()}/fav/${channel.id}/${tags.number-1}/40" title="上一页标签">&laquo;</a>
 			</li>
 			</#if>
 			<#if (tags.number<tags.totalPages-1)>
 			<li class="next">
-				<a href="${rc.getContextPath()}/fav/${channel.id}/${tags.number+1}/40">下一页</a>
+				<a href="${rc.getContextPath()}/fav/${channel.id}/${tags.number+1}/40" title="下一页标签">&raquo;</a>
 			</li>
 			</#if>
 		</ul>	
@@ -77,12 +77,12 @@
 		<ul class="pager">
 			<#if (pageNum>0)>
 			<li class="previous">
-				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum-1}">上一页</a>
+				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum-1}/0/40" title="上一页链接">上一页</a>
 			</li>
 			</#if>
 			<#if (pageNum<pages)>
 			<li class="next">
-				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum+1}">下一页</a>
+				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum+1}/0/40" title="下一页链接">下一页</a>
 			</li>
 			</#if>
 		</ul>

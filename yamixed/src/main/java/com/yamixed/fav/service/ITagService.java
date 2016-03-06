@@ -38,5 +38,8 @@ public interface ITagService extends ICrudService<Tag>{
 
 
 	public Page<Tag> findTagsByPage(final long channelId,final int pageNum,final int pageSize);
+
+
+	public List<Tag> searchTags(final Long channelid,final String key);
 	
 }
