@@ -77,12 +77,12 @@
 		<ul class="pager">
 			<#if (pageNum>0)>
 			<li class="previous">
-				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum-1}/0/40" title="上一页链接">上一页</a>
+				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum-1}/${tags.number}/40" title="上一页链接">上一页</a>
 			</li>
 			</#if>
 			<#if (pageNum<pages)>
 			<li class="next">
-				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum+1}/0/40" title="下一页链接">下一页</a>
+				<a href="${rc.getContextPath()}/fav/${channel.id}/${tagid}/${pageNum+1}/${tags.number}/40" title="下一页链接">下一页</a>
 			</li>
 			</#if>
 		</ul>
