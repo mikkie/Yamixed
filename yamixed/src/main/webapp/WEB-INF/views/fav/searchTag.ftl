@@ -26,7 +26,7 @@
 		</ul>
 	</div>	
 	<div id="articleDiv">
-		<#if articles.content?? && (articles.content?size > 0)>
+		<#if articles?? &&articles.content?? && (articles.content?size > 0)>
 		<#list articles.content as article>
 		<div class="media">
 			<a class="media-left" href="${rc.getContextPath()}/fav/article/${channel.id}/${article.id}">

@@ -67,7 +67,7 @@
                   <#if key??>
                   <input id="searchLink" name="key" type="text" class="form-control" placeholder="${key}"/>
                   <#else>
-                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接，标签(勾选)"/>
+                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接、标签"/>
                   </#if>
                   <input id="channelid" name="channelid" type="hidden" value="${channel.id}"/>
                   </div>
