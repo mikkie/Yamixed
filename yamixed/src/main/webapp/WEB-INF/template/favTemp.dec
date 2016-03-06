@@ -193,9 +193,16 @@ $(document).ready(function(){
 });
  $('#searchLink').keyup(function(e){
     if(e.keyCode == 13){
-       var key = $(this).val();
+       var $this = $(this);
+       var key = $this.val();
        if(!$.trim(key)){
-          return false;
+          var placeholder = $this.attr('placeholder');
+          if(placeholder && placeholder != '搜索链接、标签'){
+             key = placeholder;
+          }
+          else{
+             return false;
+          }
        } 
        window.location.href = '${rc.getContextPath()}/fav/search?channelid=' + $('#channelid').val() + '&key=' + key + '&isTag=' + $(searchTag).is(':checked');
     }
