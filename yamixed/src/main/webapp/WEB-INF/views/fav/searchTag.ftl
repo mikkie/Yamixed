@@ -80,7 +80,7 @@
 			</#if>
 		</ul>
 		<#else>
-		该标签暂无任何文章。
+		暂无标签。<a href="${rc.getContextPath()}/fav/${channel.id}/0/40" class="btn btn-info" role="button">返回</a>
 		</#if>
 	</div>
 	<script type="text/javascript" src="${rc.getContextPath()}/static/fav/js/public.js"></script>
