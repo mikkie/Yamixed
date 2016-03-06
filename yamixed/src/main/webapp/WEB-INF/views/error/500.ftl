@@ -40,7 +40,7 @@
       </div>
     </header> 
     <div class="content">
-    	<span class="info">sorry 看来有点小毛病 500 你懂的 ! :((((</span><a href="/">返回</a>
+    	<span class="info">sorry 服务器开小差了 ! :((((</span><a href="/">返回</a>
     </div>
 	<footer>
 		<div class="container">

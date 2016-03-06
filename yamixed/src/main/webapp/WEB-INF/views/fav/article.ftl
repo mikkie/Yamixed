@@ -12,7 +12,7 @@
 <body>
 	<div id="profile">
 		<div class="media">
-			<a class="media-left" href="${rc.getContextPath()}/fav/userfav/${channel.id}/${article.user.id}/${article.tag.id}/0">
+			<a class="media-left" href="${rc.getContextPath()}/fav/userfav/${channel.id}/${article.user.id}/${article.tag.id}/0/0/40">
 				<div class="media-left-div">
 					<img src="${article.user.avatar}" alt="..." class="img-circle"/>
 				</div>

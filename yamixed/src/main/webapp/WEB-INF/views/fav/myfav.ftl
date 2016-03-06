@@ -34,19 +34,19 @@
 		<input type="hidden" id="tagid" value="${tagid}"/>
 		</#if>
 		<ul id="tagUl" class="nav nav-pills" role="tablist">
-			<#if tags.content??>
+			<#if tags?? && tags.content??>
 		    <#list tags.content as tag>
 			<li role="presentation" class="active"><button type="button" data="${tag.id}" class="tag btn btn-success btn-xs" onclick="javascript:window.location.href='${rc.getContextPath()}/fav/userfav/${channel.id}/${loginUser.id}/${tag.id}/0/${tags.number}/40';">${tag.name}<span class="badge">${tag.articleCount}</span></button></li>
 		    </#list>
 		    </#if>
 		</ul>
 		<ul class="pager">
-			<#if (tags.number>0)>
+			<#if (tags?? && tags.number>0)>
 			<li class="previous">
 				<a href="${rc.getContextPath()}/fav/myfav/${channel.id}/${tags.number-1}/40" title="上一页标签">&laquo;</a>
 			</li>
 			</#if>
-			<#if (tags.number<tags.totalPages-1)>
+			<#if (tags?? && tags.number<tags.totalPages-1)>
 			<li class="next">
 				<a href="${rc.getContextPath()}/fav/myfav/${channel.id}/${tags.number+1}/40" title="下一页标签">&raquo;</a>
 				</li>
