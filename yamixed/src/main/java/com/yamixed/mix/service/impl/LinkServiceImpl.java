@@ -271,5 +271,5 @@ public class LinkServiceImpl extends CrudServiceImpl<Link, ILinkDao> implements
 			}
 		}); 
 	}
-
+	
 }

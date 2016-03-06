@@ -83,7 +83,7 @@ public class Link extends IdEntity{
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = StringUtils.trimWhitespace(title);
 	}
 
 	@Column(columnDefinition = "text")
@@ -92,7 +92,7 @@ public class Link extends IdEntity{
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.description = StringUtils.trimWhitespace(description);
 	}
 
 	@Column(columnDefinition = "MEDIUMTEXT")
