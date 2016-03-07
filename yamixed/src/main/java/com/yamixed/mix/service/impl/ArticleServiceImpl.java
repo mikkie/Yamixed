@@ -64,7 +64,7 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 		implements IArticleService {
 
 	// 每日显示mix数
-	private static final int DAY_MIX_SIZE = 1;
+	private static final int DAY_MIX_SIZE = 30;
 
 	@Autowired
 	private ITagDao tagDao;
