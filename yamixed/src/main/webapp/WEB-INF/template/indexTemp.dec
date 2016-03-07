@@ -65,7 +65,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <#if Session.user??>
-            <li><img onclick="javascript:window,location.href='${rc.getContextPath()}/fav/myfav/1;'" id="userAvatar" src="${Session.user.avatar}" class="img-circle"/></li>
+            <li><img onclick="javascript:window,location.href='${rc.getContextPath()}/fav/myfav/1/0/40;'" id="userAvatar" src="${Session.user.avatar}" class="img-circle"/></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${Session.user.name}<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
