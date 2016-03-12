@@ -1,5 +1,5 @@
 /**
- * 文章<br>
+ * 收藏夹<br>
  * ------------------------------------------------------------<br>
  * History<br>
  * ------------------------------------------------------------<br>
@@ -31,6 +31,7 @@ import javax.persistence.Transient;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yamixed.base.entity.IdEntity;
 import com.yamixed.base.util.ImageUtil;
 
@@ -82,6 +83,7 @@ public class Article extends IdEntity {
 	}
 
 	@ManyToOne
+	@JsonIgnore
 	public User getUser() {
 		return user;
 	}
@@ -90,6 +92,7 @@ public class Article extends IdEntity {
 		this.user = user;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "article")
 	public List<Link> getLinks() {
 		return links;

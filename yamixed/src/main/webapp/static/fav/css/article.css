@@ -58,3 +58,17 @@
 #tagpage li{
   display: none;
 }
+
+#avaArcUl{
+  list-style: none;
+  padding-left: 0;
+}
+
+.avaArcLi{
+  margin: 3px;
+  float: left;
+}
+
+#desc{
+  height: 23px;
+}

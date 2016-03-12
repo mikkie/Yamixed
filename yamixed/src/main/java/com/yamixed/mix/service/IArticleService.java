@@ -15,12 +15,15 @@
  */
 package com.yamixed.mix.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
 
 import com.yamixed.base.service.ICrudService;
 import com.yamixed.fav.entity.Article;
+import com.yamixed.fav.entity.Tag;
 import com.yamixed.fav.entity.User;
 
 /**
@@ -49,5 +52,8 @@ public interface IArticleService extends ICrudService<Article>{
 	public Page<Article> searchByTagPage(final Long tagid,final int pageNum,final User user);
 	
 	public boolean needUpdateTag(Article article, HttpServletRequest request);
+	
+	
+	public List<Article> findByUserAndTag(User user,Tag tag);
 
 }

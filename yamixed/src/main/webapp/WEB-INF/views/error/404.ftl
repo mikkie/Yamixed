@@ -40,7 +40,7 @@
       </div>
     </header> 
     <div class="content">
-    	<span class="info">sorry 404 你懂的 ! :((((</span><a href="/">返回</a>
+    	<span class="info">sorry 页面走丢了 ! :((((</span><a href="/">返回</a>
     </div>	
 	<footer>
 		<div class="container">

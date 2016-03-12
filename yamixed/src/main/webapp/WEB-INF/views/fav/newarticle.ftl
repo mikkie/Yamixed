@@ -16,10 +16,10 @@
                <input type="hidden" name="selectTagId" id="selectTagId" value=""/> 
             </#if>  
 			<div class="form-group">
-				<label for="tag" class="col-sm-offset-1 col-sm-1 control-label">标签</label>
+				<label for="tag" class="col-sm-offset-1 col-sm-1 control-label">分类*</label>
 				<div class="col-sm-8" name="tag">
 					<div id="tagSelect" class="btn-group" style="float:left;">
-						<button type="button" class="btn btn-warning" id="curTag">选择书签</button>
+						<button type="button" class="btn btn-warning" id="curTag">选择分类</button>
 						<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 							<span class="caret"></span>
 							<span class="sr-only">Toggle Dropdown</span>
@@ -39,15 +39,19 @@
 						<span class="input-group-addon">
 							<input type="checkbox" aria-label="..." id="enableCustomTag">
 						</span>
-						<input type="text" id="customTagInput" class="form-control" aria-label="..." placeholder="自定义标签" readonly="readonly" name="customTag">
+						<input type="text" id="customTagInput" class="form-control" aria-label="..." placeholder="自定义分类" readonly="readonly" name="customTag">
 					</div>
 				</div>
 			</div> 
-			<div class="form-group">
-				<label for="desc" class="col-sm-offset-1 col-sm-1 control-label">描述*</label>
-				<div class="col-sm-8">
-					<textarea class="form-control" name="desc" rows="3" id="desc"></textarea>
-				</div>
+			<div class="form-group" id="avaArcDiv">
+                <label for="history" class="col-sm-offset-1 col-sm-1 control-label">收藏夹*</label>
+                <div class="col-sm-8">
+                    <input type="hidden" id="arcId" name="arcId">
+                    <input type="hidden" id="descVal" name="desc">
+                    <ul id="avaArcUl">
+                       <li class="avaArcLi"><input type="text" id="desc" class="form-control" placeholder="新收藏夹名称"></input></li>
+                    </ul>
+                </div>
 			</div>
 			<div class="form-group">
 				<label for="privated" class="col-sm-offset-1 col-sm-1 control-label">私有</label>
@@ -95,7 +99,7 @@
 			<div class="modal-content">
 			    <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="tagLabel">选择标签</h4>
+					<h4 class="modal-title" id="tagLabel">选择分类</h4>
 				</div>
 				<div class="modal-body" style="min-height:200px;">
 				   <div id="tagdiv">
@@ -210,6 +214,11 @@
 	<script id="tagTemp" type="text/html">
 	<#noparse>
 	<li class="tagli"><button type="button" data="${id}" class="tag btn btn-warning btn-xs">${name}</button></li>
+	</#noparse>
+	</script>
+	<script id="avaArcTemp" type="text/html">
+	<#noparse>
+	   <li class="avaArcLi"><button type="button" class="avaArcBtn btn btn-primary btn-xs" articleId="${id}">${content}</button></li>
 	</#noparse>
 	</script>
 </body>

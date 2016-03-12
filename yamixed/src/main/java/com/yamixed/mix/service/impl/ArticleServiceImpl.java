@@ -220,6 +220,15 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 	 * @param request
 	 */
 	private Article handleArticle(HttpServletRequest request, Tag tag) {
+		String arcId = request.getParameter("arcId");
+		//已有的文章添加链接
+		if(!StringUtils.isEmpty(arcId)){
+			Long articleId = Long.valueOf(arcId);
+		    Article article = findOne(articleId);
+		    if(article != null){
+		    	return article;
+		    }
+		}
 		String desc = request.getParameter("desc");
 		String privated = request.getParameter("privated");
 		Article article = new Article();
@@ -236,6 +245,7 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 		article.setUser(currentUser);
 		return article;
 	}
+	
 
 	/**
 	 * 标签处理
@@ -359,6 +369,11 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 			}
 		};
 		return (Page<Article>) dao.findAll(articleSpec, pr);
+	}
+
+	@Override
+	public List<Article> findByUserAndTag(User user,Tag tag) {
+		return dao.findByUserAndTag(user,tag);
 	}
 
 }

@@ -16,10 +16,10 @@
 			<input type="hidden" name="channelid" value="${channel.id}"/>
 			<input type="hidden" name="selectTagId" id="selectTagId" value="${article.tag.id}"/>
 			<div class="form-group">
-				<label for="tag" class="col-sm-offset-1 col-sm-1 control-label">标签</label>
+				<label for="tag" class="col-sm-offset-1 col-sm-1 control-label">分类*</label>
 				<div class="col-sm-8" name="tag">
 					<div id="tagSelect" class="btn-group" style="float:left;">
-						<button type="button" class="btn btn-warning" id="curTag">选择标签</button>
+						<button type="button" class="btn btn-warning" id="curTag">选择分类</button>
 						<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 							<span class="caret"></span>
 							<span class="sr-only">Toggle Dropdown</span>
@@ -37,16 +37,10 @@
 						<span class="input-group-addon">
 							<input type="checkbox" aria-label="..." id="enableCustomTag">
 						</span>
-						<input type="text" id="customTagInput" class="form-control" aria-label="..." placeholder="自定义标签" readonly="readonly" name="customTag">
+						<input type="text" id="customTagInput" class="form-control" aria-label="..." placeholder="自定义分类" readonly="readonly" name="customTag">
 					</div>
 				</div>
 			</div> 
-			<div class="form-group">
-				<label for="desc" class="col-sm-offset-1 col-sm-1 control-label">描述*</label>
-				<div class="col-sm-8">
-					<textarea class="form-control" name="desc" rows="3" id="desc">${article.content}</textarea>
-				</div>
-			</div>
 			<div class="form-group">
 				<label for="privated" class="col-sm-offset-1 col-sm-1 control-label">私有</label>
 				<div class="col-sm-8">
@@ -134,7 +128,7 @@
 			<div class="modal-content">
 			    <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="tagLabel">选择标签</h4>
+					<h4 class="modal-title" id="tagLabel">选择分类</h4>
 				</div>
 				<div class="modal-body" style="min-height:200px;">
 				   <div id="tagdiv">

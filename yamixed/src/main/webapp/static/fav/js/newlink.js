@@ -30,7 +30,13 @@ window.com.yamixed.NewLinkPage = (function($){
 	 	TAG_PRE : 'tagpre',
 	 	TAG_NEXT : 'tagnext',
 	 	TAG_DIV : 'tagdiv',
-	 	CHOOSE_TAG : 'chooseTag'
+	 	CHOOSE_TAG : 'chooseTag',
+	 	AVA_ARC_TEMP : 'avaArcTemp',
+	 	AVA_ARC_UL : 'avaArcUl',
+	 	AVA_ARC_DIV : 'avaArcDiv',
+	 	DESC : 'desc',
+	 	ARC_ID : 'arcId',
+	 	DESC_VAL : 'descVal'
 	};
 
 	var CLASS = {
@@ -42,7 +48,9 @@ window.com.yamixed.NewLinkPage = (function($){
 		MODIFY_BTN : 'modifyBtn',
 		MEDIA : 'media',
 		URL : 'url',
-		DEL_LINK : 'delLink'
+		DEL_LINK : 'delLink',
+		AVA_ARC_LI : 'avaArcLi',
+		AVA_ARC_BTN : 'avaArcBtn'
 	};
 
 	var $curLinkInput = null; 
@@ -110,6 +118,38 @@ window.com.yamixed.NewLinkPage = (function($){
 	};
 
 	var bind = {
+		avaArcBtn_click : function(){
+           $(document).on('click','.' + CLASS.AVA_ARC_BTN,function(){
+           	  $('.' + CLASS.AVA_ARC_BTN).removeClass('btn-danger').addClass('btn-primary');
+              var $this = $(this);
+              $this.removeClass('btn-primary').addClass('btn-danger');
+              var btn_arc_id = $this.attr('articleId');
+              if(btn_arc_id){
+                 $('#' + IDS.ARC_ID).val(btn_arc_id);
+                 $('#' + IDS.DESC_VAL).val('');
+              }
+              else{
+              	 $('#' + IDS.DESC_VAL).val($this.text());
+              	 $('#' + IDS.ARC_ID).val('');
+              }
+           });   
+		},
+		new_article : function(){
+           $(document).on('keyup focusout','#' + IDS.DESC,function(e){
+               if(e.type == 'focusout' || (e.type == 'keyup' && e.keyCode == 13)){
+               	  var $this = $(this); 
+                  var value = $this.val();
+                  if(!value){
+                     return false;
+                  }
+                  var $newArc = $('<li class="avaArcLi"><button type="button" class="avaArcBtn btn btn-primary btn-xs">'+ value +'</button></li>')
+                  $this.parent().before($newArc);
+                  $this.val('');
+                  $newArc.find('button').trigger('click');
+                  return false;
+               }
+           });   
+		}, 
 		parse_click : function(){
 			$(document).on('click','.' + CLASS.PARSE_BTN,function(){
 				clearOldData();
@@ -170,7 +210,10 @@ enable_custom_tag : function(){
 	$('#' + IDS.ENABLE_CUSTOM_TAG).click(function(){
 		var $this = $(this);
 		if($this.is(':checked')){
-			$('#customTagInput').removeAttr('readonly');	
+			$('#customTagInput').removeAttr('readonly');
+			if($('#' + IDS.AVA_ARC_DIV).length > 0){
+			   $('.' + CLASS.AVA_ARC_LI +':not(:last)').remove();
+			}
 		}
 		else{
 			$('#customTagInput').attr('readonly','readonly');
@@ -304,10 +347,13 @@ save_article : function(){
 		   $('#' + IDS.CUR_TAG).focus();	
            return;  
 		}
-		var $desc = $('#' + IDS.DESC);
-		if(!$.trim($desc.val())){
-           $desc.focus();
-           return;
+		if($('#' + IDS.AVA_ARC_DIV).length > 0){
+		  var $selArcBtn = $('.' + CLASS.AVA_ARC_BTN + '.btn-danger');
+		  var $desc = $('#' + IDS.DESC);
+		  if($selArcBtn.length == 0){
+            $desc.focus();
+            return;
+		  }
 		}
 		if($('.' + CLASS.MEDIA).length < 1){
 		   $('.' + CLASS.URL + ':eq(0)').focus();
@@ -331,14 +377,38 @@ choose_tag : function(){
         return false;
   	 }
   	 $('#' + IDS.CUR_TAG).text($selectedBtn.text());
-  	 $('#' + IDS.SELECT_TAG_ID).val($selectedBtn.attr('data'));
+  	 var tagid = $selectedBtn.attr('data');
+  	 $('#' + IDS.SELECT_TAG_ID).val(tagid);
+  	 if($('#' + IDS.AVA_ARC_DIV).length > 0){
+  	    buildAvailableArticles(tagid);
+  	 }
   	 $('#' + IDS.TAG_DIALOG).modal('hide');
   });	
 }
 };
 
 
+var buildAvailableArticles = function(tagid){
+    $.get(ctx + '/article/findUserArticles/' + tagid,function(data){
+    	var $div = $('#' + IDS.AVA_ARC_DIV);
+    	var $ul = $('#' + IDS.AVA_ARC_UL);
+    	$ul.empty();
+    	if(data.success){
+          var html = $('#' + IDS.AVA_ARC_TEMP).tmpl(data.success);   
+    	  $ul.append(html);
+    	  $ul.append('<li class="avaArcLi"><input type="text" id="desc" name="desc" class="form-control" placeholder="新收藏夹名称"></input></li>');
+    	  $div.show();
+    	  $('.' + CLASS.AVA_ARC_BTN + ':eq(0)').trigger('click');
+    	}
+    	else{
+     	  $div.hide();	
+    	}
+    },'json');
+};
+
+
 var init = function(){
+	bind.avaArcBtn_click();
 	bind.tag_select();   
 	bind.enable_custom_tag();
 	bind.add_link();
@@ -353,6 +423,7 @@ var init = function(){
 	bind.save_article();
 	bind.tag_click();
 	bind.choose_tag();
+	bind.new_article();
 	var $oldtag = $('#' + IDS.OLD_TAG);
 	if($oldtag.length > 0){
        $('#' + IDS.CUR_TAG).text($oldtag.val());

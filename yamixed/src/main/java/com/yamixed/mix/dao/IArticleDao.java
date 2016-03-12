@@ -15,13 +15,19 @@
  */
 package com.yamixed.mix.dao;
 
+import java.util.List;
+
 import com.yamixed.base.dao.CrudDao;
 import com.yamixed.fav.entity.Article;
+import com.yamixed.fav.entity.Tag;
+import com.yamixed.fav.entity.User;
 
 /**
  * @author Administrator
  *
  */
 public interface IArticleDao extends CrudDao<Article, Long>{
+
+	public List<Article> findByUserAndTag(User user,Tag tag);
 
 }
