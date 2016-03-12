@@ -216,6 +216,10 @@ enable_custom_tag : function(){
 			}
 		}
 		else{
+			var selectTagId = $('#' + IDS.SELECT_TAG_ID).val();
+			if(selectTagId){
+				buildAvailableArticles(selectTagId);
+			}
 			$('#customTagInput').attr('readonly','readonly');
 		}
 		$('#' + IDS.TAG_SELECT).toggle();

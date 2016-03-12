@@ -62,12 +62,12 @@
                   <#if searchTag?? && searchTag == true>
                   <span class="input-group-addon" id="searchTagLabel">@标签</span>
                   <#else>
-                  <span class="input-group-addon" style="display:none;" id="searchTagLabel">@标签</span>
+                  <span class="input-group-addon" style="display:none;" id="searchTagLabel">@分类</span>
                   </#if>
                   <#if key??>
                   <input id="searchLink" name="key" type="text" class="form-control" placeholder="${key}"/>
                   <#else>
-                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接、标签"/>
+                  <input id="searchLink" name="key" type="text" class="form-control" placeholder="搜索链接、分类"/>
                   </#if>
                   <input id="channelid" name="channelid" type="hidden" value="${channel.id}"/>
                   </div>
@@ -197,7 +197,7 @@ $(document).ready(function(){
        var key = $this.val();
        if(!$.trim(key)){
           var placeholder = $this.attr('placeholder');
-          if(placeholder && placeholder != '搜索链接、标签'){
+          if(placeholder && placeholder != '搜索链接、分类'){
              key = placeholder;
           }
           else{
