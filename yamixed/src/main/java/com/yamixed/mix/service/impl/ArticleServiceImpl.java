@@ -107,7 +107,6 @@ public class ArticleServiceImpl extends CrudServiceImpl<Article, IArticleDao>
 				updateOldTagCount(article.getTag());
 				article.setTag(newTag);
 			}
-			article.setContent(request.getParameter("desc"));
 			String privated = request.getParameter("privated");
 			if("on".equals(privated)){
 				article.setPrivated(true);

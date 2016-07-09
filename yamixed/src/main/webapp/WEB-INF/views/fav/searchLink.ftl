@@ -19,6 +19,7 @@
 					<a href="${link.url}" target="_blank" class="mixLink">
 						<h4 class="media-heading"><span class="title">${link.title}</span><span class="info"> ${link.createTime}</span></h4>
 					</a>
+					<button type="button" class="tag btn btn-warning btn-xs" onclick="javascript:window.location.href='${rc.getContextPath()}/fav/${link.article.tag.channel.id}/${link.article.tag.id}/0/0/40';">${link.article.tag.name}<span class="badge">${link.article.tag.articleCount}</span></button>
 					<h5 class="content">${link.description}</h5>
 					<div class="jiathis_style shareTag" style="display:inline-block;" data-summary="${link.description}" data-title="${link.title}" data-pic="${link.previewImgUrl}" data-url="">
 						<a class="jiathis_button_qzone"></a>
