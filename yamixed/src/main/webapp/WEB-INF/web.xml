@@ -95,6 +95,21 @@
 		<url-pattern>*.ftl</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<servlet-class>
+			com.sun.jersey.spi.spring.container.servlet.SpringServlet
+		</servlet-class>
+		<init-param>
+          <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+          <param-value>com.yamixed.api.v1.security.BasicAuthFilter</param-value>
+        </init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<url-pattern>/rest/api/v1/*</url-pattern>
+	</servlet-mapping>
+	
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
