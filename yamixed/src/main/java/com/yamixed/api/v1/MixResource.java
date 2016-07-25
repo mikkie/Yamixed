@@ -123,5 +123,6 @@ public class MixResource {
 		category.setId(cateId);
 		return category;
 	}
+	
 
 }
