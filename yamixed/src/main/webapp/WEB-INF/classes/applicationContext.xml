@@ -15,7 +15,7 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -33,7 +33,7 @@
 			</props>
 		</property>
 	</bean>
-
+	
 	<bean id="hibernateJpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 
@@ -75,7 +75,6 @@
 				false； -->
 			<property name="breakAfterAcquireFailure" value="${db.breakAfterAcquireFailure}" />
 			<!-- 当连接池用完时客户端调用getConnection()后等待获取新连接的时间，超时后将抛出SQLException，如设为0则无限期等待。单位毫秒，默认为0； -->
-			<property name="checkoutTimeout" value="${db.checkoutTimeout}" />
 			<!-- 始化时创建的连接数，应在minPoolSize与maxPoolSize之间取值。默认为3； -->
 			<property name="initialPoolSize" value="${db.initialPoolSize}" />
 			<!-- 最大空闲时间，超过空闲时间的连接将被丢弃。为0或负数则永不丢弃。默认为0； -->
@@ -92,6 +91,7 @@
 			<!-- 用户修改系统配置参数执行前最多等待的秒数。默认为300； -->
 			<property name="propertyCycle" value="${db.propertyCycle}" />
 		</bean>
+
 	</beans>
 
 </beans>

@@ -34,4 +34,6 @@ public enum APIExceptionCode {
 	
 	public static String PARSE_URL_ERROR = "5000";
 	
+	public static String CREATE_MIX_ERROR = "5001";
+	
 }
