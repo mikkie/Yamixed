@@ -166,6 +166,18 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="title" class="col-sm-3 control-label">标题*</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="title" class="form-control" id="title" placeholder="标题" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="desc" class="col-sm-3 control-label">描述*</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="desc" rows="3" id="linkdesc"></textarea>
+                            </div>
+                        </div>
+						<div class="form-group">
 							<label for="privated" class="col-sm-3 control-label">私有</label>
 							<div class="col-sm-8">
                                 <input id="linkPrivated" type="checkbox" name="privated"/> 
