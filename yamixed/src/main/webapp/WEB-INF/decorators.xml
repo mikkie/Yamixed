@@ -6,4 +6,7 @@
 	<decorator name="index" page="indexTemp.dec">
 		<pattern>/*</pattern>
 	</decorator>
+	<excludes>
+        <pattern>/.well-known/*</pattern>
+    </excludes>
 </decorators>

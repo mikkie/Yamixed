@@ -62,6 +62,9 @@
                 </#if>
               </ul>
             </li>
+            <li>
+              <a href="${rc.getContextPath()}/chrome/view">Chrome插件</a>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <#if Session.user??>
