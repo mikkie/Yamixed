@@ -9,6 +9,20 @@
 	<name>yamixed</name>
 	<url>http://www.yamixed.com</url>
 
+	<repositories>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Sonatype Nexus Staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<developers>
 		<developer>
 			<id>Mingjie Li</id>
@@ -50,11 +64,21 @@
 	</properties>
 
 	<dependencies>
-	    <dependency>
-          <groupId>commons-codec</groupId>
-          <artifactId>commons-codec</artifactId>
-          <version>${commons-codec.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-core</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-sms</artifactId>
+			<version>3.0.0-rc1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.sun</groupId>
 			<artifactId>tools</artifactId>
@@ -207,8 +231,8 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	
-		<build>
+
+	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
